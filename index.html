@@ -17,8 +17,9 @@ a{color:inherit}
 .topline{display:flex;justify-content:space-between;align-items:center;gap:16px;text-transform:uppercase;letter-spacing:.18em;font:11px Arial,sans-serif;color:#d7d8c7}
 .hero{position:relative;isolation:isolate;overflow:hidden;min-height:650px;background:linear-gradient(105deg,rgba(15,25,20,.82),rgba(25,38,30,.72) 58%,rgba(25,34,27,.58)),url("asset/Forteresse%20du%20d%C3%A9sert%20au%20sablier.png") center 48%/cover no-repeat;color:#f4efdf;padding:30px clamp(24px,6vw,76px) 60px}
 .hero:after{content:"";position:absolute;z-index:0;right:7%;top:145px;width:29%;height:390px;background:#e7decb;border:1px solid rgba(255,249,232,.7);box-shadow:0 18px 50px rgba(0,0,0,.18)}
+.portrait{position:absolute;z-index:1;right:4%;bottom:0;width:37%;height:91%;object-fit:contain;object-position:center bottom;pointer-events:none;filter:drop-shadow(0 12px 20px rgba(20,25,20,.16))}
 .seal{display:inline-grid;place-items:center;width:54px;height:54px;border:1px solid rgba(240,231,205,.5);border-radius:50%;font-size:22px;color:#e2d6b7}
-.hero-copy{position:relative;z-index:1;max-width:58%;margin-top:100px}
+.hero-copy{position:relative;z-index:2;max-width:58%;margin-top:100px}
 .kicker{font:11px Arial,sans-serif;letter-spacing:.25em;text-transform:uppercase;color:#c9c7ad}
 h1{font-size:clamp(52px,9vw,104px);font-weight:normal;line-height:.94;letter-spacing:-.055em;margin:22px 0}
 h1 span{display:block;color:#c8c7a8;font-style:italic}
@@ -50,13 +51,14 @@ p{margin:0 0 16px}
 .closing h2{font-style:italic}
 .closing p{max-width:620px;margin:16px auto;color:var(--muted)}
 footer{background:var(--moss-dark);color:#dcdcc9;text-align:center;padding:22px;font:10px Arial,sans-serif;letter-spacing:.16em;text-transform:uppercase}
-@media(max-width:700px){.shell{padding:12px}.hero{min-height:600px;background-position:58% center}.hero:after{right:7%;top:105px;width:34%;height:230px;opacity:.92}.hero-copy{max-width:100%;margin-top:90px}.intro{max-width:75%}h1{font-size:clamp(48px,12vw,76px)}.profile{grid-template-columns:1fr;gap:20px}.goals{grid-template-columns:1fr}.nav{gap:14px}.topline{align-items:flex-start}.section{padding:32px 0}}
+@media(max-width:700px){.shell{padding:12px}.hero{min-height:600px;background-position:58% center}.hero:after{right:2%;top:135px;width:48%;height:290px;opacity:.96}.portrait{right:-7%;width:66%;height:72%;opacity:.96}.hero-copy{max-width:100%;margin-top:90px}.intro{max-width:75%}h1{font-size:clamp(48px,12vw,76px)}.profile{grid-template-columns:1fr;gap:20px}.goals{grid-template-columns:1fr}.nav{gap:14px}.topline{align-items:flex-start}.section{padding:32px 0}}
 </style>
 </head>
 <body>
 <div class="shell">
 <header class="hero" id="haut">
-  <div class="topline"><span>Archives shinobi · Suna</span><span class="seal" aria-label="Emblème décoratif">隼</span></div>
+  <div class="topline"><span>Archives shinobi · Suna</span><span class="seal" aria-label="Emblème décoratif">砂</span></div>
+  <img class="portrait" src="asset/Gar%C3%A7on%20timide%20sous%20chapeau%20conique.png" alt="Portrait d’Isaru Hato, jeune shinobi de Suna">
   <div class="hero-copy">
     <div class="kicker">Dossier de candidature · Voie du combat</div>
     <h1>Isaru <span>Hato</span></h1>
