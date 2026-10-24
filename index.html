@@ -16,7 +16,7 @@ a{color:inherit}
 .shell{max-width:1120px;margin:auto;padding:28px}
 .topline{display:flex;justify-content:space-between;align-items:center;gap:16px;text-transform:uppercase;letter-spacing:.18em;font:11px Arial,sans-serif;color:#d7d8c7}.topline .top-kicker{text-align:right;color:#c9c7ad;letter-spacing:.2em}
 .hero{position:relative;isolation:isolate;overflow:hidden;min-height:650px;background:linear-gradient(105deg,rgba(15,25,20,.82),rgba(25,38,30,.72) 58%,rgba(25,34,27,.58)),url("asset/Forteresse%20du%20d%C3%A9sert%20au%20sablier.png") center 48%/cover no-repeat;color:#f4efdf;padding:30px clamp(24px,6vw,76px) 60px}
-.hero:after{content:none}
+.hero:after{content:none}.sand-particles{position:absolute;inset:0;width:100%;height:100%;z-index:1;pointer-events:none;opacity:.78}.hero-copy,.hero-meta{z-index:2}
 .portrait-shadow{display:none}.portrait{position:absolute;z-index:1;right:4%;bottom:0;width:37%;height:91%;object-fit:contain;object-position:center bottom;pointer-events:none;filter:drop-shadow(0 0 2px rgba(235,226,197,.72)) drop-shadow(0 0 7px rgba(205,210,173,.32));animation:silhouetteGlow 4.5s ease-in-out infinite alternate}@keyframes silhouetteGlow{0%{filter:drop-shadow(0 0 1px rgba(235,226,197,.48)) drop-shadow(0 0 4px rgba(205,210,173,.16))}100%{filter:drop-shadow(0 0 3px rgba(245,235,207,.88)) drop-shadow(0 0 11px rgba(205,210,173,.48))}}@media(prefers-reduced-motion:reduce){.portrait{animation:none}}
 .seal{display:none}
 .hero-copy{position:relative;z-index:2;max-width:58%;margin-top:145px}
@@ -59,6 +59,7 @@ footer{background:var(--moss-dark);color:#dcdcc9;text-align:center;padding:22px;
 <header class="hero" id="haut">
   <div class="topline"><span>Archives shinobi · Suna</span><span class="top-kicker">Dossier de candidature · Voie du combat</span></div>
   <div class="portrait-shadow" aria-hidden="true"></div>
+  <canvas class="sand-particles" aria-hidden="true"></canvas>
   <img class="portrait" src="asset/Gar%C3%A7on%20timide%20sous%20chapeau%20conique.png" alt="Portrait d’Isaru Hato, jeune shinobi de Suna">
   <div class="hero-copy">
     <div class="kicker">Dossier de candidature · Voie du combat</div>
@@ -114,5 +115,55 @@ footer{background:var(--moss-dark);color:#dcdcc9;text-align:center;padding:22px;
 </main>
 <footer>Archives de Suna · Dossier personnel d'Isaru Hato</footer>
 </div>
+
+<script>
+(() => {
+  const canvas = document.querySelector('.sand-particles');
+  const hero = document.querySelector('.hero');
+  if (!canvas || !hero) return;
+  const ctx = canvas.getContext('2d');
+  if (!ctx) return;
+  const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  let width = 0, height = 0, particles = [], frame = 0;
+  const count = 42;
+  const rand = (min, max) => min + Math.random() * (max - min);
+  function resize() {
+    const rect = hero.getBoundingClientRect();
+    width = rect.width; height = rect.height;
+    const dpr = Math.min(window.devicePixelRatio || 1, 2);
+    canvas.width = Math.round(width * dpr);
+    canvas.height = Math.round(height * dpr);
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    particles = Array.from({length: count}, () => ({
+      x: Math.random() < .5 ? rand(4, width * .17) : rand(width * .83, width - 4),
+      y: rand(0, height), r: rand(.7, 2.1), alpha: rand(.18, .62),
+      vx: rand(-.12, .18), vy: rand(-.42, -.12), phase: rand(0, Math.PI * 2),
+      twinkle: rand(.008, .025)
+    }));
+    if (reduced) draw(true);
+  }
+  function draw(staticFrame = false) {
+    ctx.clearRect(0, 0, width, height);
+    for (const p of particles) {
+      const shimmer = reduced ? .8 : .58 + Math.sin(frame * p.twinkle + p.phase) * .32;
+      ctx.beginPath();
+      ctx.fillStyle = 'rgba(226, 204, 151, ' + (p.alpha * shimmer) + ')';
+      ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+      ctx.fill();
+      if (!staticFrame && !reduced) {
+        p.x += p.vx + Math.sin(frame * .008 + p.phase) * .13;
+        p.y += p.vy;
+        if (p.y < -4) { p.y = height + rand(0, 30); }
+        if (p.x < 2) p.x = width * .15;
+        if (p.x > width * .98) p.x = width * .84;
+      }
+    }
+    if (!reduced) { frame++; requestAnimationFrame(() => draw()); }
+  }
+  resize();
+  if (!reduced) draw();
+  window.addEventListener('resize', resize, {passive:true});
+})();
+</script>
 </body>
 </html>
