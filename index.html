@@ -52,10 +52,18 @@ p{margin:0 0 16px}
 .closing p{max-width:620px;margin:16px auto;color:var(--muted)}
 footer{background:#e7decb;color:#536052;text-align:center;padding:22px;font:10px Arial,sans-serif;letter-spacing:.16em;text-transform:uppercase;border-top:1px solid rgba(83,96,82,.2)}
 @media(max-width:700px){.shell{padding:12px}.hero{min-height:600px;background-position:58% center;padding-top:22px}.topline{gap:10px;font-size:9px;align-items:flex-start}.topline .top-kicker{text-align:right;font-size:9px;letter-spacing:.14em}.hero:after{right:2%;top:135px;width:48%;height:290px;opacity:.96}.portrait-shadow{display:none}.portrait{right:-7%;width:66%;height:72%;opacity:.96}.hero-copy{max-width:100%;margin-top:88px;padding-bottom:135px}.intro{max-width:75%;font-size:16px}.hero-meta{left:24px;right:24px;bottom:22px;gap:7px}.pill{font-size:9px;padding:6px 9px}h1{font-size:clamp(36px,9.5vw,62px);white-space:nowrap;margin:18px 0}.profile{grid-template-columns:1fr;gap:20px}.goals{grid-template-columns:1fr}.nav{gap:14px}.section{padding:32px 0}}
+
+/* Particules décoratives discrètes sur les bords du parchemin */
+.side-dust{position:fixed;top:0;bottom:0;width:clamp(26px,5vw,72px);z-index:4;pointer-events:none;overflow:hidden;opacity:.7}
+.side-dust.left{left:0}.side-dust.right{right:0}
+.side-dust span{position:absolute;bottom:-12px;left:var(--x);width:var(--s);height:var(--s);border-radius:50%;background:var(--c);opacity:var(--o);box-shadow:0 0 7px color-mix(in srgb,var(--c) 55%,transparent);animation:sideDustRise var(--d) linear var(--delay) infinite}
+@keyframes sideDustRise{0%{transform:translate3d(0,0,0) scale(.7);opacity:0}12%{opacity:var(--o)}80%{opacity:calc(var(--o)*.7)}100%{transform:translate3d(var(--drift),-110vh,0) scale(1.15);opacity:0}}
+@media(max-width:700px){.side-dust{width:17px;opacity:.5}}
+@media(prefers-reduced-motion:reduce){.side-dust span{animation:none;opacity:.25}}
 </style>
 </head>
 <body>
-<div class="shell">
+<div class="side-dust left" aria-hidden="true"><span style="--x:22%;--s:3px;--c:#536b56;--o:.45;--d:15s;--delay:-4s;--drift:9px"></span><span style="--x:68%;--s:2px;--c:#b29a6b;--o:.65;--d:19s;--delay:-12s;--drift:-5px"></span><span style="--x:40%;--s:4px;--c:#b29a6b;--o:.35;--d:22s;--delay:-8s;--drift:7px"></span><span style="--x:78%;--s:2px;--c:#536b56;--o:.5;--d:17s;--delay:-2s;--drift:-8px"></span><span style="--x:15%;--s:2px;--c:#b29a6b;--o:.55;--d:20s;--delay:-15s;--drift:5px"></span></div><div class="side-dust right" aria-hidden="true"><span style="--x:72%;--s:3px;--c:#536b56;--o:.45;--d:18s;--delay:-9s;--drift:-7px"></span><span style="--x:32%;--s:2px;--c:#b29a6b;--o:.65;--d:16s;--delay:-6s;--drift:6px"></span><span style="--x:56%;--s:4px;--c:#b29a6b;--o:.35;--d:24s;--delay:-18s;--drift:-5px"></span><span style="--x:20%;--s:2px;--c:#536b56;--o:.5;--d:19s;--delay:-11s;--drift:8px"></span><span style="--x:84%;--s:2px;--c:#b29a6b;--o:.55;--d:21s;--delay:-3s;--drift:-6px"></span></div><div class="shell">
 <header class="hero" id="haut">
   <div class="topline"><span>Archives shinobi · Suna</span><span class="top-kicker">Dossier de candidature · Voie du combat</span></div>
   <div class="portrait-shadow" aria-hidden="true"></div>
